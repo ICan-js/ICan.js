@@ -1,0 +1,14 @@
+image: node:8.10.0
+
+cache:
+  paths:
+  - node_modules/
+
+stages:
+  - test
+
+test_async:
+  stage: test
+  script:
+   - npm install
+   - npm test
