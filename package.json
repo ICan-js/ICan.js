@@ -1,0 +1,34 @@
+{
+  "name": "ican.js",
+  "version": "0.0.1",
+  "description": "Biblioteca para adição de mais acessibilidade em páginas da web através de Deep Learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ican.js/ican.js.git"
+  },
+  "keywords": [
+    "acessibilidade",
+    "tfjs",
+    "deep learning"
+  ],
+  "author": "Felipe Menino",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://gitlab.com/ican.js/ican.js/issues"
+  },
+  "homepage": "https://gitlab.com/ican.js/ican.js#README",
+  "dependencies": {
+    "@tensorflow-models/posenet": "^0.2.3",
+    "@tensorflow/tfjs": "^0.14.2"
+  },
+  "devDependencies": {
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0",
+    "jest": "^23.6.0"
+  }
+}
