@@ -7,7 +7,10 @@ class Regression {
             throw new TypeError("This class can not be instantiated");
         }
 
-        this.stack = {};
+        this.stack = {
+            x: [],
+            y: []
+        };
         this.filter = null;
 
         this.modelX = modelX;
