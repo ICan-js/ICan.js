@@ -5,13 +5,11 @@ import { PoseNet } from "../../core/PoseNet/index";
 import { Regression } from "../../core/Regression/index";
 import { CalibrationAPI } from "../../core/CalibrationAPI/index";
 
-
 /**
  * Função para calibrar modelo de regressão que será utilizado nos métodos de 
  * controle do mouse com o nariz
  */
 function calibrate(regressionModel, fnc) {
-
     if (!(regressionModel instanceof Regression)) {
         throw TypeError("The regression model must be a generalization of Regression");
     }
