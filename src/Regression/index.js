@@ -59,7 +59,6 @@ class LinearRegression extends Regression {
      */
     doRegression(data) {
         let n = 0;
-        let results = [];
         let sum = [0, 0, 0, 0, 0];
         
         for (; n < data.length; n++) {
@@ -75,11 +74,6 @@ class LinearRegression extends Regression {
         // Cálculo do intercepto e do gradiente da reta
         let gradient = (n * sum[3] - sum[0] * sum[1]) / (n * sum[2] - sum[0] * sum[0]);
         let intercept = (sum[1] / n) - (gradient * sum[0]) / n;
-
-        for (let i = 0; i < data.length; i++) {
-            var coordinate = [data[i][0], data[i][0] * gradient + intercept];
-            results.push(coordinate);
-        }
 
         return {
             gradient: gradient,

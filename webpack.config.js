@@ -6,7 +6,7 @@ module.exports = {
     },
     output: {
         library: 'icjs',
-        filename: 'ican.js',
+        filename: 'icjs.js',
         path: path.resolve(__dirname, 'dist')
     }
 }

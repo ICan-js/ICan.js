@@ -14,7 +14,7 @@ class PoseNet extends EventEmitter {
 
         this.video = video;
         
-        this.neuralModel = {};
+        this.neuralModel = null;
         this.imageMultiplier = imageMultiplier;
         this.imageScaleFactor = imageScaleFactor;
         this.outputStride = outputStride;
@@ -24,17 +24,16 @@ class PoseNet extends EventEmitter {
      * Método para criar um singleton da instância do modelo da rede
      */
     async buildNet() {
-        if (this.neuralModel) {
+        if (this.neuralModel === null) {
             this.neuralModel = await posenet.load(this.imageMultiplier);
-        } 
-        return this.neuralModel;
+        }
     }
 
     /**
      * Método para recuperar pontos faciais do usuário
      */
     async trackSingleUser() {
-        buildNet();
+        this.buildNet();
 
         let poses = await this.neuralModel.estimateSinglePose(
                     this.video, this.imageScaleFactor, false, this.outputStride)

@@ -1,6 +1,3 @@
-import { PoseNet } from '../PoseNet/index';
-
-
 /**
  * Classe para o controle do mouse 
  */
@@ -16,7 +13,7 @@ class NoseViewer {
      */
     predictMousePoint(fnc) {
         this.posenet.on("poses", fnc);
-        this.posenet.predictMousePoint();
+        this.posenet.trackSingleUser();
     }
 }
 
