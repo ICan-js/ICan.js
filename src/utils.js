@@ -16,6 +16,10 @@ function getGestureNameFromPredict(predict) {
 function setupVideo() {
     let videoCapture = document.getElementById("videoElementICJS");
     
+    if (videoCapture === null) {
+        throw Error("You need to add an element with videoElementICJS id in your HTML code");
+    }
+
     videoCapture.height = 180;
     videoCapture.width = 180;
     videoCapture.hidden = true;
