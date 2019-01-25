@@ -1,20 +1,36 @@
-/**
- * Função para encontrar o valor máximo de um array
- * @param {*} arr 
- */
-function maxArray(arr) {
-    return Math.max.apply(this, arr);
-}
+import p5 from "p5";
 
 /**
  * Método para recuperar o nome da classe predito pelos classificadores de Libras
  */
-function getClassNameFromPredict(predict) {
+function getGestureNameFromPredict(predict) {
     const classes = ["Amigo", "Desculpa", "Telefone"];
 
-    return classes[predict.indexOf(maxArray(Array.from(predict)))];
+    return classes[predict.indexOf(p5.prototype.max(Array.from(predict)))];
+}
+
+/**
+ * Função para configurar o elemento de vídeo utilizado nas classificações
+ * @param {*} videoElementName 
+ */
+function setupVideo() {
+    let videoCapture = document.getElementById("videoElementICJS");
+    
+    videoCapture.height = 180;
+    videoCapture.width = 180;
+    videoCapture.hidden = true;
+
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
+            videoCapture.srcObject = stream;
+        }).catch((error) => {
+            alert(error);
+        });
+    }
+
+    return videoCapture;
 }
 
 export {
-    getClassNameFromPredict
+    getGestureNameFromPredict, setupVideo
 }

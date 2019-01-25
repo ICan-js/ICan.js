@@ -47,8 +47,12 @@ class Regression {
      * @param {*} filter 
      * @param {*} delay 
      */
-    setFilter(filter, delay) {
-        throw new Error("This methods needs to be overwritten");    
+    setFilter(filter) {
+        if (new.target == Regression) {
+            throw new TypeError("This class can not be instantiated");
+        } 
+
+        this.filter = filter;
     }
 }
 

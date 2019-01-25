@@ -26,7 +26,8 @@
   "dependencies": {
     "@tensorflow-models/posenet": "^0.2.3",
     "@tensorflow/tfjs": "^0.14.2",
-    "events": "^3.0.0"
+    "events": "^3.0.0",
+    "p5": "^0.7.3"
   },
   "devDependencies": {
     "jest": "^23.6.0",
