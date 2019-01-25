@@ -7,6 +7,9 @@ class Regression {
             throw new TypeError("This class can not be instantiated");
         }
 
+        this.stack = {};
+        this.filter = null;
+
         this.modelX = modelX;
         this.modelY = modelY;
     }
@@ -27,8 +30,22 @@ class Regression {
         throw new Error("This methods needs to be overwritten");
     }
 
+    /**
+     * Método para treinar o modelo de regressão
+     * @param {*} xDataset 
+     * @param {*} yDataset 
+     */
     trainModel(xDataset, yDataset) {
         throw new Error("This methods needs to be overwritten");
+    }
+
+    /**
+     * Método para adição de filtro na inferência da posição do mouse
+     * @param {*} filter 
+     * @param {*} delay 
+     */
+    setFilter(filter, delay) {
+        throw new Error("This methods needs to be overwritten");    
     }
 }
 
@@ -45,6 +62,22 @@ class LinearRegression extends Regression {
 
         let xPredict = (nose.position.x * this.modelX.gradient) + this.modelX.intercept;
         let yPredict = (nose.position.y * this.modelY.gradient) + this.modelY.intercept;
+
+        // Aplicação de filtro para possível suavização da movimentação do mouse
+        if (this.filter !== null) {
+            if (this.stack.x.length === this.filter.delay) {
+                xPredict = this.filter.apply(xPredict);
+                yPredict = this.filter.apply(yPredict);
+
+                this.stack = {
+                    x: [],
+                    y: []
+                };
+            } else {
+                this.stack.x.push(xPredict);
+                this.stack.y.push(yPredict);
+            }
+        }
 
         return {
             x: xPredict,
@@ -81,6 +114,12 @@ class LinearRegression extends Regression {
         }
     }
 
+
+    /**
+     * Método para treinar o modelo de regressão
+     * @param {*} xDataset 
+     * @param {*} yDataset 
+     */
     trainModel(xDataset, yDataset) {
         if (this.modelX !== null || this.modelY !== null) {
             throw new Error("The weights have already been defined, it is not possible to train the model")
