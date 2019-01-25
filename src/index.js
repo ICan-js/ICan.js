@@ -1,7 +1,8 @@
-import { Regression, LinearRegression } from "./Regression/index";
-import { PoseNet } from "./PoseNet/index";
-import { NoseView } from "./NoseViewer/index";
+import * as utils from "./utils";
+
+import * as core from './core/index';
+import * as common from "./common/index";
 
 export {
-    Regression, LinearRegression, PoseNet, NoseView
+    core, common, utils
 }
