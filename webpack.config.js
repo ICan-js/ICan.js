@@ -2,11 +2,11 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        icjs: './src/BeMyArms.js'
+        icjs: './src/index.js'
     },
     output: {
-        library: 'BeMyArms',
-        filename: 'bemyarms.js',
+        library: 'icjs',
+        filename: 'ican.js',
         path: path.resolve(__dirname, 'dist')
     }
 }
