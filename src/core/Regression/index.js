@@ -52,6 +52,11 @@ class Regression {
     }
 }
 
+/**
+ * Modelo de regressão linear, que pode ser utilizado para a inferência da posição do usuário na tela
+ * Aqui o método empregado regressão linear é simples, porém, realizado duas vezes, sendo a predição para a 
+ * posição X e Y
+ */
 class LinearRegression extends Regression {
 
     /**
