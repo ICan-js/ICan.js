@@ -21,9 +21,13 @@ function changeDivPosition(div, x, y) {
  * Função para adicionar uma div na página
  * @param {*} text 
  */
-function createDiv(className) {
+function createDiv(className) {    
     let div = document.createElement("div");
     div.className = className;
+
+    // Inserindo elemento na página
+    let body = document.getElementsByTagName("body")[0];
+    body.appendChild(div);
 
     return div;
 }

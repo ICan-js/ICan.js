@@ -13,8 +13,8 @@ function applyDivScrollerStyle(div) {
     div.style.display = "block";
     div.style.borderRadius = "20px";
     div.style.transformOrigin = "10px 10px";
-    div.style.height = "15px";
-    div.style.width = "15px";
+    div.style.height = "20px";
+    div.style.width = "20px";
     div.style.backgroundColor = "blue";   
     
     return div;
@@ -28,6 +28,14 @@ function applyDivScrollerStyle(div) {
  */
 function screenScroller(regressionModel, filter=null) {
     
+    if (!(regressionModel instanceof Regression)) {
+        throw new Error("regressionModel must be a generalization of Regression");
+    }
+
+    if (regressionModel.modelX === null || regressionModel.modelY === null) {
+        throw new Error("regressionModel must be trained before starting this process");
+    }
+
     let filterFunction = null;
     if (filter !== null) {
         if (filter.name === "mean") {
@@ -37,27 +45,20 @@ function screenScroller(regressionModel, filter=null) {
         } else {
             throw new Error("The filter function specified is not valid, use medium or medium");
         }
-    }
 
-    if (!(regressionModel instanceof Regression)) {
-        throw new Error("regressionModel must be a generalization of Regression");
+        // Aplicando filtro
+        regressionModel.setFilter({
+            delay: filter.delay,
+            apply: filterFunction
+        });
     }
-
-    if (regressionModel.modelX === null || regressionModel.modelY === null) {
-        throw new Error("regressionModel must be trained before starting this process");
-    }
-
-    regressionModel.setFilter({
-        delay: filter.delay,
-        apply: filterFunction
-    });
 
     new p5(function(sketch) {
-        
-        let poses;
-        let pointer;
-        let posenet;
-        let videoCapture;
+
+        let poses = null;
+        let pointer = null;
+        let posenet = null;
+        let videoCapture = null;
 
         sketch.setup = function() {
             videoCapture = setupVideo();
@@ -76,7 +77,7 @@ function screenScroller(regressionModel, filter=null) {
             if (poses !== null) {
                 let nose = poses.keypoints[0];
 
-                let posObj = inferMousePosition(nose);
+                let posObj = regressionModel.inferMousePosition(nose);
                 changeDivPosition(pointer, posObj.x, posObj.y);
 
                 // Lógica para a criação do Scrolling

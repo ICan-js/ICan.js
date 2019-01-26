@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
  * API de calibração dos modelos de regressão
  */
 class CalibrationAPI extends EventEmitter {
-    constructor(sketch, pointSize=25, pointsToStorage=15) {
+    constructor(sketch, pointSize, pointsToStorage) {
         super();
 
         this.sketch = sketch;
@@ -74,14 +74,16 @@ class CalibrationAPI extends EventEmitter {
      * @param {*} nosePoint 
      */
     isInEllipse(mousePoint, nosePoint) {
-
         this.ellipsesPositions.forEach((e) => {
             if (this.sketch.dist(mousePoint.x, mousePoint.y, e.x, e.y) < this.pointSize) {
 
-                this.pointStorage[e.name].push({
-                    mousePoint: mousePoint,
-                    nosePoint: nosePoint
-                });
+                // Verificação para evitar overfitting
+                if (this.pointStorage[e.name].length <= this.pointsToStorage) {
+                    this.pointStorage[e.name].push({
+                        mousePoint: mousePoint,
+                        nosePoint: nosePoint
+                    });
+                }
             }
         });
 

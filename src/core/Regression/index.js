@@ -73,8 +73,8 @@ class LinearRegression extends Regression {
         // Aplicação de filtro para possível suavização da movimentação do mouse
         if (this.filter !== null) {
             if (this.stack.x.length === this.filter.delay) {
-                xPredict = this.filter.apply(xPredict);
-                yPredict = this.filter.apply(yPredict);
+                xPredict = this.filter.apply(this.stack.x);
+                yPredict = this.filter.apply(this.stack.y);
 
                 this.stack = {
                     x: [],
@@ -120,7 +120,6 @@ class LinearRegression extends Regression {
             intercept: intercept
         }
     }
-
 
     /**
      * Método para treinar o modelo de regressão

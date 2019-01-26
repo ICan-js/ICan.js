@@ -9,7 +9,9 @@ import { CalibrationAPI } from "../../core/CalibrationAPI/index";
  * Função para calibrar modelo de regressão que será utilizado nos métodos de 
  * controle do mouse com o nariz
  */
-function calibrate(regressionModel, fnc) {
+
+// ToDo: Adicionar parâmetro para poder editar a instancia de CalibrationAPI
+function calibrate(regressionModel, fnc, calibrationOptions=null) {
     if (!(regressionModel instanceof Regression)) {
         throw TypeError("The regression model must be a generalization of Regression");
     }
@@ -17,7 +19,16 @@ function calibrate(regressionModel, fnc) {
     if (typeof fnc !== "function") {
         throw TypeError("The return must be represented by a function!");
     }
-    
+
+    if (calibrationOptions === null) {
+        calibrationOptions = {
+            pointSize: 20,
+            pointsToStorage: 15
+        }
+    }
+
+    console.log(calibrationOptions);
+
     // p5 in instance mode
     new p5(function(sketch) {
         
@@ -31,24 +42,25 @@ function calibrate(regressionModel, fnc) {
 
             videoCapture = setupVideo();
 
-            calibrationAPI = new CalibrationAPI(sketch);
+            calibrationAPI = new CalibrationAPI(sketch, 
+                                calibrationOptions.pointSize, calibrationOptions.pointsToStorage);
             calibrationAPI.displayEllipses();
 
             calibrationAPI.on("finish", (pointStorage) => {
-                let xDataset = [];
-                let yDataset = [];
+                if (regressionModel.modelX === null && regressionModel.modelY === null) {
+                    let xDataset = [];
+                    let yDataset = [];
 
-                // Separa os dados de cada dataset
-                Object.keys(pointStorage).forEach((pointName) => {
-                    pointStorage[pointName].forEach((data) => {
-                        xDataset.push([data.nosePoint.x, data.mousePoint.x]);
-                        yDataset.push([data.nosePoint.y, data.mousePoint.y]);
+                    // Separa os dados de cada dataset
+                    Object.keys(pointStorage).forEach((pointName) => {
+                        pointStorage[pointName].forEach((data) => {
+                            xDataset.push([data.nosePoint.x, data.mousePoint.x]);
+                            yDataset.push([data.nosePoint.y, data.mousePoint.y]);
+                        });
                     });
-                });
-                
-                // Treina o modelo
-                regressionModel.trainModel(xDataset, yDataset);
-                
+                    regressionModel.trainModel(xDataset, yDataset);
+                }
+                                
                 // Envinado o modelo de regressão treinado para o callback
                 fnc(regressionModel);
             });
