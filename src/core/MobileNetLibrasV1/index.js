@@ -22,13 +22,12 @@ class MobileNetV1Libras {
 
     /**
      * 
-     * @param {*} image (p5 pixels result) 
+     * @param {*} image
      * @param {*} imageShape 
      */
     async predict(image) {
         this.buildNet();
         
-        // Recupera a classe com maior probabilidade apresentado pelo modelo 
         return await this.model.predict(image).dataSync();
     }
 }

@@ -83,9 +83,9 @@ function screenScroller(regressionModel, filter=null) {
                 // Lógica para a criação do Scrolling
                 // Obrigado ao OzRamos :smile:
                 if (posObj.y < 0) {
-                    window.scrollTo(0, window.scrollY + posObj.y * 0.05);
+                    window.scrollTo(0, window.scrollY + posObj.y * 0.03);
                 } else if (posObj.y > window.innerHeight) {
-                    window.scrollTo(0, window.scrollY + (posObj.y - window.innerHeight) * 0.05);
+                    window.scrollTo(0, window.scrollY + (posObj.y - window.innerHeight) * 0.03);
                 }
             }
         };

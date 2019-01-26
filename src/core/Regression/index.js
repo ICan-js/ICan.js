@@ -48,10 +48,6 @@ class Regression {
      * @param {*} delay 
      */
     setFilter(filter) {
-        if (new.target == Regression) {
-            throw new TypeError("This class can not be instantiated");
-        } 
-
         this.filter = filter;
     }
 }

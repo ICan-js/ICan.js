@@ -9,8 +9,6 @@ import { CalibrationAPI } from "../../core/CalibrationAPI/index";
  * Função para calibrar modelo de regressão que será utilizado nos métodos de 
  * controle do mouse com o nariz
  */
-
-// ToDo: Adicionar parâmetro para poder editar a instancia de CalibrationAPI
 function calibrate(regressionModel, fnc, calibrationOptions=null) {
     if (!(regressionModel instanceof Regression)) {
         throw TypeError("The regression model must be a generalization of Regression");
@@ -26,8 +24,6 @@ function calibrate(regressionModel, fnc, calibrationOptions=null) {
             pointsToStorage: 15
         }
     }
-
-    console.log(calibrationOptions);
 
     // p5 in instance mode
     new p5(function(sketch) {
