@@ -15,6 +15,9 @@ class MobileNetV1Libras extends EventEmitter {
 
         this.model = null;
         this.webcamStream = webcamStream;
+
+        // Informativo temporário
+        console.warn("MobileNetV1Libras", "There are updates that need to be done in this class and its resources because over time memory usage becomes excessive");        
     }
 
     /**
@@ -27,18 +30,25 @@ class MobileNetV1Libras extends EventEmitter {
     }
 
     /**
-     * 
+     * Método para a classificação frame-a-frame (Não continua)
      * @param {*} image
      * @param {*} imageShape 
      */
-    async predictImage(image) {
+    async predictFrame() {
         await this.buildNet();
+
+        if (this.webcamStream.isActivated()) {
+            let result = this.model.predict(this.webcamStream.captureImage());
         
-        return await this.model.predict(image).dataSync();
+            return transformMobileNetV1LibrasResultsInJson(result.dataSync());
+        } else {
+            console.warn("predictFrame: ", "The camera is disabled, predictions will not be made");
+            return {}
+        }
     }
 
     /**
-     * Método para a classificação continua de um vídeo
+     * Método para a classificação continua de um vídeo (Classificação continua de diversos frames)
      * @param {Webcam} webcamStream 
      */
     async predictVideo() {
@@ -52,6 +62,9 @@ class MobileNetV1Libras extends EventEmitter {
     
             if (this.webcamStream.isActivated()) {
                 return tf.nextFrame().then(() => this.predictVideo());
+            } else {
+                console.warn("predictVideo: ", "The camera is disabled, predictions will not be made");
+                return {}
             }
         }
     }
