@@ -10,10 +10,11 @@ const MODEL_URL = new URL("/", "https://ican-api.herokuapp.com/");
  * Classe do modelo Mobilenet treinado para o reconhecimento de Libras
  */
 class MobileNetV1Libras extends EventEmitter {
-    constructor() {
+    constructor(webcamStream) {
         super();
-        
+
         this.model = null;
+        this.webcamStream = webcamStream;
     }
 
     /**
@@ -40,16 +41,17 @@ class MobileNetV1Libras extends EventEmitter {
      * Método para a classificação continua de um vídeo
      * @param {Webcam} webcamStream 
      */
-    async predictVideo(webcamStream) {
+    async predictVideo() {
         await this.buildNet();
 
         if (this.model !== null) {
-            let gestures = await this.model.predict(webcamStream.captureImage());
+            let gestures = await this.model.predict(this.webcamStream.captureImage());
 
-            this.emit("gestures", transformMobileNetV1LibrasResultsInJson(gestures));
+            this.emit("gestures", transformMobileNetV1LibrasResultsInJson(gestures.dataSync()));
+            gestures.dispose();
     
-            if (webcamStream.isActivated()) {
-                return tf.nextFrame().then(() => this.predictVideo(webcamStream));
+            if (this.webcamStream.isActivated()) {
+                return tf.nextFrame().then(() => this.predictVideo());
             }
         }
     }
