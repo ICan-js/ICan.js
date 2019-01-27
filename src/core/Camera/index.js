@@ -23,6 +23,13 @@ class Webcam {
             return batchedImage.toFloat().div(tf.scalar(127)).sub(tf.scalar(1));
         });
     }
+
+    /**
+     * Método para verificar se o Stream da webcam ainda está ativo
+     */
+    isActivated() {
+        return (this.videoElement.currentTime > 0 && !this.videoElement.paused && !this.videoElement.ended);
+    }
 }
 
 export {
