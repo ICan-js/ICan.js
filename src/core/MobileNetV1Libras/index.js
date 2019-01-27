@@ -1,12 +1,15 @@
 import * as tf from "@tensorflow/tfjs";
 
+import { EventEmitter } from "events";
+import { transformMobileNetV1LibrasResultsInJson } from "./utils";
+
 const MODEL_URL = new URL("/", "https://ican-api.herokuapp.com/");
 
 
 /**
  * Classe do modelo Mobilenet treinado para o reconhecimento de Libras
  */
-class MobileNetV1Libras {
+class MobileNetV1Libras extends EventEmitter {
     constructor() {
         this.model = null;
     }
@@ -25,10 +28,28 @@ class MobileNetV1Libras {
      * @param {*} image
      * @param {*} imageShape 
      */
-    async predict(image) {
+    async predictImage(image) {
         await this.buildNet();
         
         return await this.model.predict(image).dataSync();
+    }
+
+    /**
+     * Método para a classificação continua de um vídeo
+     * @param {Webcam} webcamStream 
+     */
+    async predictVideo(webcamStream) {
+        await this.buildNet();
+
+        if (this.model !== null) {
+            let gestures = await this.model.predict(webcamStream.captureImage());
+
+            this.emit("gestures", transformMobileNetV1LibrasResultsInJson(gestures));
+    
+            if (webcamStream.isActivated()) {
+                return tf.nextFrame().then(() => this.predictVideo(webcamStream));
+            }
+        }
     }
 }
 
