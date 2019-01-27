@@ -11,6 +11,8 @@ const MODEL_URL = new URL("/", "https://ican-api.herokuapp.com/");
  */
 class MobileNetV1Libras extends EventEmitter {
     constructor() {
+        super();
+        
         this.model = null;
     }
 
