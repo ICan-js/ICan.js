@@ -4,8 +4,6 @@
  * sendo muito legal, estou fazendo manualmente para aprender mais sobre a manipulação de DOM
  */
 
-import p5 from "p5";
-
 /**
  * Função para alterar a posição de uma div
  * @param {*} div 
@@ -30,15 +28,6 @@ function createDiv(className) {
     body.appendChild(div);
 
     return div;
-}
-
-/**
- * Método para recuperar o nome da classe predito pelos classificadores de Libras
- */
-function getGestureNameFromPredict(predict) {
-    const classes = ["Amigo", "Desculpa", "Telefone"];
-
-    return classes[predict.indexOf(p5.prototype.max(Array.from(predict)))];
 }
 
 /**
