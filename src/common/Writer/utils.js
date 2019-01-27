@@ -9,6 +9,15 @@ import p5 from "p5";
  * @param {*} gestures 
  */
 function getMeanGesture(gestures) {
+    
+    if (gestures instanceof Array) {
+        if (gestures.length > 0) {
+            if (Object.keys(gestures[0]) <= 0) {
+                throw Error("The gesture results object within the list must contain each of the predicted classes");
+            }
+        }
+    }
+
     // Fixado em três gestos
     let gestureNames = [
         "Amigo", "Desculpa", "Telefone"
