@@ -16,11 +16,10 @@ class Webcam {
         return tf.tidy(() => {
             const webcamImage = tf.fromPixels(this.videoElement);
 
-            // ToDo: Verificar a influência deste passo na classificação
             const batchedImage = webcamImage.expandDims(0);
-
-            // Antes de retornar é feito uma normalização
-            // Verifica a influência desta normalização dos dados
+            
+            // Foi necessário normalizar a imagem capturada para a classificação ocorrer 
+            // sem problemas
             return batchedImage.toFloat().div(tf.scalar(127)).sub(tf.scalar(1));
         });
     }

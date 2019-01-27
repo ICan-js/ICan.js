@@ -43,18 +43,20 @@ function getGestureNameFromPredict(predict) {
 
 /**
  * Função para configurar o elemento de vídeo utilizado nas classificações
- * @param {*} videoElementName 
+ * @param {*} videoHeight 
+ * @param {*} videoWidth 
+ * @param {*} isHidden 
  */
-function setupVideo() {
+function setupVideo(videoHeight=180, videoWidth=180, isHidden=true) {
     let videoCapture = document.getElementById("videoElementICJS");
     
     if (videoCapture === null) {
         throw Error("You need to add an element with videoElementICJS id in your HTML code");
     }
 
-    videoCapture.height = 180;
-    videoCapture.width = 180;
-    videoCapture.hidden = true;
+    videoCapture.height = videoHeight;
+    videoCapture.width = videoWidth;
+    videoCapture.hidden = isHidden;
 
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
