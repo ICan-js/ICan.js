@@ -3,10 +3,15 @@ import { getMeanGesture } from "./utils";
 import { Webcam } from "../../core/Camera/index";
 import { MobileNetV1Libras } from "../../core/MobileNetV1Libras/index";
 
+
 /**
- * Função para escrita de textos com gestos na camera
- * @param {} delay Tempo de espera entre cada gesto em segundos
- * @param {} fnc Função de callback que será executada a cada identificação de gestos
+ * Função para escrita de textos com gestos de Libras na câmera. Para a utilização desta
+ * função será necessário definir o delay em que cada frame é capturado e também a
+ * quantidade de frames que deverão ser utilizados para definir o texto escrito pelo usuário. Isto por que esta função captura uma quantidade N de imagens, em X delay e então cria uma média de resultados de predição, assim a palavra com a maior média é utilizada como verdade ao o que o usuário estava dizendo nos gestos.
+ * 
+ * @param {Number} delay Tempo de espera entre cada gesto em segundos
+ * @param {Number} nFrames Quantidade de frames a serem captados para o cálculo da média
+ * @param {Function} fnc Função que será utilizada para devolver os resultados calculados
  */
 function librasWriter(delay, nFrames, fnc) {
     

@@ -2,11 +2,11 @@ import p5 from "p5";
 
 /**
  * Função para recuperar o gesto com valores médios mais significativos
- * Isto permite a classificação de gestos em um dado instante de tempo T até um instante T + 1
+ * Isto permite a classificação de gestos em um dado instante de tempo T até um instante T + nFrames
  * 
  * A ideia foi retirada da seguinte dissertação de mestrado: Magalh, G. I. (2018). RECONHECIMENTO DE 
  * GESTOS DA LÍNGUA BRASILEIRA DE SINAIS ATRAVÉS DE REDES NEURAIS.
- * @param {*} gestures 
+ * @param {Array} gestures Array com um conjunto de saídas do método predictFrame da classe MobileNetV1Libras
  */
 function getMeanGesture(gestures) {
     

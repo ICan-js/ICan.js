@@ -6,8 +6,9 @@ import { mean, median } from "../../core/Stats/index";
 
 
 /**
- * Função para aplicar estilo padrão a uma div
- * @param {*} div 
+ * Função utilitário para aplicar estilo padrão a div que será utilizada como ponteiro
+ * do mouse
+ * @param {HTMLElement} div 
  */
 function applyDivScrollerStyle(div) {
     div.style.display = "block";
@@ -21,10 +22,10 @@ function applyDivScrollerStyle(div) {
 }
 
 /**
- * Facade para a utilização do PoseNet em Screen Scrollers
- * @param {*} posenet 
- * @param {*} regressionModel 
- * @param {*} filter 
+ * Facade para a utilização do PoseNet em Screen Scrollers (Controle da posição na tela utilizando gestos com a cabeça).
+ * 
+ * @param {Regression} regressionModel Modelo de regressão que será utilizado junto a rede neural para criar o controle do mouse do usuário
+ * @param {String} filter Filtro que pode ser aplicado as localizações onde está a div (Que representa o ponteiro do mouse) está sendo colocada. Você pode utilizar os filtros "median" ou "mean". Por padrão nenhum filtro é aplicado
  */
 function screenScroller(regressionModel, filter=null) {
     
