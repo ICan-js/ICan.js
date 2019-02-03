@@ -1,5 +1,8 @@
 /**
  * Função para cálcular a média de um array
+ * 
+ * @see https://pt.wikipedia.org/wiki/M%C3%A9dia
+ * 
  * @param {Array} arr Array de números para cálculo da média dos valores 
  * @returns {Number} Valor médio do array
  */
@@ -14,6 +17,9 @@ function mean(arr) {
 
 /**
  * Função para cálcular a mediana de uma array
+ * 
+ * @see https://pt.wikipedia.org/wiki/Mediana_(estat%C3%ADstica)
+ * 
  * @param {Array} arr Array de números para cálculo da mediana dos valores 
  * @returns {Number} Valor mediano do array
  */

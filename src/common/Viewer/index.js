@@ -22,7 +22,9 @@ function applyDivScrollerStyle(div) {
 }
 
 /**
- * Facade para a utilização do PoseNet em Screen Scrollers (Controle da posição na tela utilizando gestos com a cabeça).
+ * Facade para a utilização do PoseNet em Screen Scrollers (Controle da posição na tela utilizando gestos com a cabeça). A metodologia utilizada aqui foi apresentada no WebGazer.js
+ * 
+ * @see https://webgazer.cs.brown.edu/ 
  * 
  * @param {Regression} regressionModel Modelo de regressão que será utilizado junto a rede neural para criar o controle do mouse do usuário
  * @param {String} filter Filtro que pode ser aplicado as localizações onde está a div (Que representa o ponteiro do mouse) está sendo colocada. Você pode utilizar os filtros "median" ou "mean". Por padrão nenhum filtro é aplicado
