@@ -2,6 +2,7 @@ import * as tf from "@tensorflow/tfjs";
 
 import { EventEmitter } from "events";
 import { transformMobileNetV1LibrasResultsInJson } from "./utils";
+import { Webcam } from "../Camera";
 
 const MODEL_URL = new URL("/", "https://ican-api.herokuapp.com/");
 
@@ -10,6 +11,9 @@ const MODEL_URL = new URL("/", "https://ican-api.herokuapp.com/");
  * Classe do modelo Mobilenet treinado para o reconhecimento de Libras
  */
 class MobileNetV1Libras extends EventEmitter {
+    /**
+     * @param {Webcam} webcamStream Instância da classe WebCam 
+     */
     constructor(webcamStream) {
         super();
 
@@ -30,9 +34,11 @@ class MobileNetV1Libras extends EventEmitter {
     }
 
     /**
-     * Método para a classificação frame-a-frame (Não continua)
-     * @param {*} image
-     * @param {*} imageShape 
+     * Método para a classificação frame-a-frame (Não continua).
+     * 
+     * Este método recupera apenas o frame atual e faz sua classificação
+     * 
+     * @returns {Object} Retorna objeto com as probabilidades de cada uma das classes preditas. E.g {a: 0.4, b: 0.6}
      */
     async predictFrame() {
         await this.buildNet();
@@ -49,7 +55,7 @@ class MobileNetV1Libras extends EventEmitter {
 
     /**
      * Método para a classificação continua de um vídeo (Classificação continua de diversos frames)
-     * @param {Webcam} webcamStream 
+     * @emits Emite um objeto com as probabilidades preditas pela rede neural de cada um dos frames. E.g {a: 0.4, b: 0.6}
      */
     async predictVideo() {
         await this.buildNet();

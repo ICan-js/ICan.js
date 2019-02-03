@@ -2,15 +2,22 @@ import * as tf from "@tensorflow/tfjs";
 
 /**
  * Classe para a representação da webcam. Criada com base na documentação
- * do Google (https://github.com/tensorflow/tfjs-examples/blob/master/webcam-transfer-learning/webcam.js)
+ * do Google (https://github.com/tensorflow/tfjs-examples/blob/master/webcam-transfer-learning/webcam.js).
+ * 
+ * Esta classe abstrai operações de captura de frames da câmera do usuário e verificação do stream da câmera
+ * do usuário
  */
 class Webcam {
+    /**
+     * @param {HTMLMediaElement} videoElement Elemento de vídeo HTML capturado pelo Javascript 
+     */
     constructor(videoElement) {
         this.videoElement = videoElement;
     }
 
     /**
      * Método para capturar a imagem atual na webcam
+     * @returns {tf.Tensor} Imagem capturada da câmera do usuário, transformada em um tensor
      */
     captureImage() {
         return tf.tidy(() => {
@@ -26,6 +33,8 @@ class Webcam {
 
     /**
      * Método para verificar se o Stream da webcam ainda está ativo
+     * 
+     * @returns {Boolean} Flag se a stream está ou não ativa
      */
     isActivated() {
         return (this.videoElement.currentTime > 0 && !this.videoElement.paused && !this.videoElement.ended);

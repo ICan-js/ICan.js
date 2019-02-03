@@ -1,6 +1,7 @@
 /**
- * Função para transformar os resultados de Libras em uma estrutura JSON
- * @param {} results
+ * Função utilitário para transformar os resultados de predição da classe MobileNetV1 
+ * em uma estrutura JSON
+ * @param {Array} results Array com as probabilidades das classes preditas pela rede neural
  */
 function transformMobileNetV1LibrasResultsInJson(results) {
     return {
