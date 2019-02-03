@@ -1,6 +1,7 @@
 /**
  * Função para cálcular a média de um array
- * @param {*} arr 
+ * @param {Array} arr Array de números para cálculo da média dos valores 
+ * @returns {Number} Valor médio do array
  */
 function mean(arr) {
     let s = 0;
@@ -13,7 +14,8 @@ function mean(arr) {
 
 /**
  * Função para cálcular a mediana de uma array
- * @param {} arr 
+ * @param {Array} arr Array de números para cálculo da mediana dos valores 
+ * @returns {Number} Valor mediano do array
  */
 function median(arr) {
     let median;

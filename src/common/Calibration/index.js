@@ -6,7 +6,7 @@ import { Regression } from "../../core/Regression/index";
 import { CalibrationAPI } from "../../core/CalibrationAPI/index";
 
 /**
- * Função para calibrar modelo de regressão que será utilizado nos métodos de 
+ * Facade para a API de calibração de modelo de regressão que será utilizado nos métodos de 
  * controle do mouse com o nariz. Aqui básicamente são captados uma quantidade X (Por padrão 15) de pontos 
  * pontos do mouse do usuário e também da posição de seu nariz e então com estes dados criar um modelo de
  * regressão (Definido pelo usuário) que será devolvido através da função de callback.

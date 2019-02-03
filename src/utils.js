@@ -6,7 +6,7 @@
 
 /**
  * Função para alterar a posição de uma div
- * @param {*} div 
+ * @param {HTMLElement} div div que será movida para a nova posição 
  */
 function changeDivPosition(div, x, y) {
     div.style.position = "absolute";
@@ -17,7 +17,7 @@ function changeDivPosition(div, x, y) {
 
 /**
  * Função para adicionar uma div na página
- * @param {*} text 
+ * @param {String} className Nome da classe que a nova div terá 
  */
 function createDiv(className) {    
     let div = document.createElement("div");
@@ -31,10 +31,11 @@ function createDiv(className) {
 }
 
 /**
- * Função para configurar o elemento de vídeo utilizado nas classificações
- * @param {*} videoHeight 
- * @param {*} videoWidth 
- * @param {*} isHidden 
+ * Função para configurar o elemento de vídeo utilizado nas classificações. Para utilizar esta função
+ * é necessário ter um elemento de vídeo com o ID igual a "videoElementICJS"
+ * @param {Number} videoHeight Altura da janela de vídeo que será criada
+ * @param {Number} videoWidth Largura da janela de vídeo que será criada
+ * @param {Number} isHidden Flag para indicar se o elemento de vídeo criado deve ou não ser oculto
  */
 function setupVideo(videoHeight=180, videoWidth=180, isHidden=true) {
     let videoCapture = document.getElementById("videoElementICJS");
