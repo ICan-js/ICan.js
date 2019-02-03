@@ -8,6 +8,15 @@ import { EventEmitter } from 'events';
  * Rede neural para a identificação dos pontos faciais do usuário
  */
 class PoseNet extends EventEmitter {
+    /**
+     * 
+     * @see https://ieeexplore.ieee.org/document/7410693/
+     * 
+     * @param {HTMLMediaElement} video Stream de vídeo que deve ser utilizado no modelo 
+     * @param {*} imageMultiplier 
+     * @param {*} imageScaleFactor 
+     * @param {*} outputStride 
+     */
     constructor(video, imageMultiplier=0.75, imageScaleFactor=0.5, outputStride=16) {
         super();
 
