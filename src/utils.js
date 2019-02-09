@@ -60,5 +60,5 @@ function setupVideo(videoHeight=180, videoWidth=180, isHidden=true) {
 }
 
 export {
-    getGestureNameFromPredict, setupVideo, createDiv, changeDivPosition
+    setupVideo, createDiv, changeDivPosition
 }
