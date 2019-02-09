@@ -2,12 +2,15 @@
  * Pesos de regressão treinados  
  */
 class TrainedRegression {
+
     /**
      * 
-     * @param {Regression} weights Pesos do modelo treinados
+     * @param {Number} gradient Valor do gradiente ajustado
+     * @param {Number} intercept Valor do interpecto ajustado 
      */
-    constructor(weights) {
-        this.weights = weights;
+    constructor(gradient, intercept) {
+        this.gradient = gradient;
+        this.intercept = intercept;
     }
 }
 
@@ -66,11 +69,24 @@ class Regression {
 
     /**
      * Método para adição de filtro na inferência da posição do mouse
-     * @param {*} filter 
-     * @param {*} delay 
+     * @param {Function} filter 
      */
     setFilter(filter) {
         this.filter = filter;
+    }
+
+    /**
+     * Método para exportar os pesos dos modelos de regressão
+     */
+    exportRegressionWeights() {
+        if (this.modelX === null || this.modelY === null) {
+            throw new Error("The weights is not defined");
+        }
+
+        return {
+            weightsX: new TrainedRegression(this.modelX.gradient, this.modelX.intercept),
+            weightsY: new TrainedRegression(this.modelY.gradient, this.modelY.intercept)
+        }
     }
 }
 
@@ -120,7 +136,8 @@ class LinearRegression extends Regression {
      * 
      * @see https://github.com/brownhci/WebGazer/blob/master/src/regression.js
      * 
-     * @param {Array} data 
+     * @param {Array} data Conjunto de dados com a posição do mouse e posição do nariz do usuário para
+     * regulagem do modelo de regressão
      */
     doRegression(data) {
         let n = 0;
@@ -159,20 +176,6 @@ class LinearRegression extends Regression {
         // Realiza as regressões para cada um dos datasets
         this.modelX = this.doRegression(xDataset);
         this.modelY = this.doRegression(yDataset);
-    }
-
-    /**
-     * Método para exportar os pesos dos modelos de regressão
-     */
-    exportRegressionWeights() {
-        if (this.modelX === null || this.modelY === null) {
-            throw new Error("The weights is not defined");
-        }
-
-        return {
-            weightsX: new TrainedRegression(this.modelX),
-            weightsY: new TrainedRegression(this.modelY)
-        }
     }
 }
 

@@ -66,8 +66,12 @@ function calibrate(regressionModel, fncFinish, fncUpdate, calibrationOptions=nul
                     });
                     regressionModel.trainModel(xDataset, yDataset);
                 }
-                                
-                // Envinado o modelo de regressão treinado para o callback
+                
+                // Desativando o canvas
+                sketch.mousePressed = null;
+                sketch.draw = null;
+
+                // Enviando o modelo de regressão treinado para o callback
                 fncFinish(regressionModel);
             });
 
