@@ -1,9 +1,20 @@
 import { EventEmitter } from 'events';
 
 /**
- * API de calibração dos modelos de regressão
+ * API para calibração dos modelos de regressão disponiveis no ICan.js
+ * Esta API captura a posição do mouse do usuário assim como a posição do nariz, para que seja
+ * possível para os modelos de regressão mapear a relação entre as duas variáveis.
+ * 
+ * @emits Emite um sinal com a lista de pontos do mouse e do nariz do usuário
  */
 class CalibrationAPI extends EventEmitter {
+
+    /**
+     * 
+     * @param {P5} sketch Instância de objeto P5
+     * @param {Number} pointSize Tamanho do ponto a ser exibido na tela do usuário para captação da posição do mouse
+     * @param {Number} pointsToStorage Quantidade de cada ponto exibida para finalização da calibração
+     */
     constructor(sketch, pointSize, pointsToStorage) {
         super();
 
@@ -70,8 +81,8 @@ class CalibrationAPI extends EventEmitter {
 
     /**
      * Método para verificar se o mouse está dentro de alguma ellipse
-     * @param {*} mousePoint 
-     * @param {*} nosePoint 
+     * @param {Array} mousePoint Lista com posição cartesiana do mouse do usuário
+     * @param {Array} nosePoint List com posição cartesiana do nariz do usuário
      */
     isInEllipse(mousePoint, nosePoint) {
         this.ellipsesPositions.forEach((e) => {
@@ -93,6 +104,8 @@ class CalibrationAPI extends EventEmitter {
     /**
      * Método para informar ao usuário da API que a quantidade de pontos necessários
      * no modelo foi atingido 
+     * 
+     * @returns {null}
      */
     verifyPointStorage() {            
         let isComplete = true;

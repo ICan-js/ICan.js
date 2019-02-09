@@ -1,7 +1,25 @@
 /**
+ * Pesos de regressão treinados  
+ */
+class TrainedRegression {
+    /**
+     * 
+     * @param {Regression} weights Pesos do modelo treinados
+     */
+    constructor(weights) {
+        this.weights = weights;
+    }
+}
+
+/**
  * Classe abstrata para os modelos de regressão
  */
 class Regression {
+    /**
+     * 
+     * @param {TrainedRegression} modelX Modelo de regressão já treinado
+     * @param {TrainedRegression} modelY Modelo de regressão já treinado
+     */
     constructor(modelX=null, modelY=null) {
         if (new.target == Regression) {
             throw new TypeError("This class can not be instantiated");
@@ -12,9 +30,13 @@ class Regression {
             y: []
         };
         this.filter = null;
+        this.modelX = null;
+        this.modelY = null;
 
-        this.modelX = modelX;
-        this.modelY = modelY;
+        if (modelX !== null && modelY !== null) {
+            this.modelX = modelX.weights;
+            this.modelY = modelY.weights;
+        }
     }
 
     /**
@@ -94,9 +116,11 @@ class LinearRegression extends Regression {
     }
 
     /**
-     * Método para realizar a regressão
-     * Script adaptado de: (https://github.com/brownhci/WebGazer/blob/master/src/regression.js)
-     * @param {*} data 
+     * Método para geração dos pesos do modelo de regressão 
+     * 
+     * @see https://github.com/brownhci/WebGazer/blob/master/src/regression.js
+     * 
+     * @param {Array} data 
      */
     doRegression(data) {
         let n = 0;
@@ -124,8 +148,8 @@ class LinearRegression extends Regression {
 
     /**
      * Método para treinar o modelo de regressão
-     * @param {*} xDataset 
-     * @param {*} yDataset 
+     * @param {Array} xDataset 
+     * @param {Array} yDataset 
      */
     trainModel(xDataset, yDataset) {
         if (this.modelX !== null || this.modelY !== null) {
@@ -135,6 +159,20 @@ class LinearRegression extends Regression {
         // Realiza as regressões para cada um dos datasets
         this.modelX = this.doRegression(xDataset);
         this.modelY = this.doRegression(yDataset);
+    }
+
+    /**
+     * Método para exportar os pesos dos modelos de regressão
+     */
+    exportRegressionWeights() {
+        if (this.modelX === null || this.modelY === null) {
+            throw new Error("The weights is not defined");
+        }
+
+        return {
+            weightsX: new TrainedRegression(this.modelX),
+            weightsY: new TrainedRegression(this.modelY)
+        }
     }
 }
 

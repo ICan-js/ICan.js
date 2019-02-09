@@ -56,6 +56,8 @@ class MobileNetV1Libras extends EventEmitter {
     /**
      * Método para a classificação continua de um vídeo (Classificação continua de diversos frames)
      * @emits Emite um objeto com as probabilidades preditas pela rede neural de cada um dos frames. E.g {a: 0.4, b: 0.6}
+     * 
+     * @returns {Object} Objeto de classificação de vídeo
      */
     async predictVideo() {
         await this.buildNet();

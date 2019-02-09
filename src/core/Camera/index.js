@@ -1,8 +1,9 @@
 import * as tf from "@tensorflow/tfjs";
 
 /**
- * Classe para a representação da webcam. Criada com base na documentação
- * do Google (https://github.com/tensorflow/tfjs-examples/blob/master/webcam-transfer-learning/webcam.js).
+ * Classe para a representação da webcam. Criada com base na documentação do Google 
+ * 
+ * @see https://github.com/tensorflow/tfjs-examples/blob/master/webcam-transfer-learning/webcam.js
  * 
  * Esta classe abstrai operações de captura de frames da câmera do usuário e verificação do stream da câmera
  * do usuário
