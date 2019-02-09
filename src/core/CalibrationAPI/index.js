@@ -94,6 +94,12 @@ class CalibrationAPI extends EventEmitter {
                         mousePoint: mousePoint,
                         nosePoint: nosePoint
                     });
+
+                    // Envia nome do ponto selecionado
+                    this.emit("update", {
+                        "name": e.name,
+                        "size": this.pointStorage[e.name].length
+                    });
                 }
             }
         });

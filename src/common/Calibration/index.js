@@ -12,18 +12,19 @@ import { CalibrationAPI } from "../../core/CalibrationAPI/index";
  * regressão (Definido pelo usuário) que será devolvido através da função de callback.
  * 
  * @param {Regression} regressionModel Modelo de regressão que deverá ser utilizado no projeto
- * @param {Function} fnc Função que será utilizada para entragar o modelo de regressão calibrado
+ * @param {Function} fncFinish Função que será utilizada para entragar o modelo de regressão calibrado
+ * @param {Function} fncUpdate Função que será utilizada sempre que um ponto for atualizado
  * @param {Object} calibrationOptions Opções que podem mudar os objetos do CANVAS de calibração
  * @param {Number} calibrationOptions.pointSize Tamanho das elipses a serem exibidas na calibração 
  * @param {Number} calibrationOptions.pointsToStorage Quantidade de pontos que devem ser armazenados de cada elipse
  */
-function calibrate(regressionModel, fnc, calibrationOptions=null) {
+function calibrate(regressionModel, fncFinish, fncUpdate, calibrationOptions=null) {
     if (!(regressionModel instanceof Regression)) {
         throw TypeError("The regression model must be a generalization of Regression");
     }
 
-    if (typeof fnc !== "function") {
-        throw TypeError("The return must be represented by a function!");
+    if (typeof fncFinish !== "function" || typeof fncUpdate !== "function") {
+        throw TypeError("The fncFinish|fncUpdate must be represented by a function!");
     }
 
     if (calibrationOptions === null) {
@@ -50,6 +51,7 @@ function calibrate(regressionModel, fnc, calibrationOptions=null) {
                                 calibrationOptions.pointSize, calibrationOptions.pointsToStorage);
             calibrationAPI.displayEllipses();
 
+            calibrationAPI.on("update", fncUpdate);
             calibrationAPI.on("finish", (pointStorage) => {
                 if (regressionModel.modelX === null && regressionModel.modelY === null) {
                     let xDataset = [];
@@ -66,7 +68,7 @@ function calibrate(regressionModel, fnc, calibrationOptions=null) {
                 }
                                 
                 // Envinado o modelo de regressão treinado para o callback
-                fnc(regressionModel);
+                fncFinish(regressionModel);
             });
 
             posenet = new PoseNet(videoCapture);
