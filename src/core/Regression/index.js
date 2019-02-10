@@ -20,10 +20,10 @@ class TrainedRegression {
 class Regression {
     /**
      * 
-     * @param {TrainedRegression} modelX Modelo de regressão já treinado
+     * @param {TrainedRegression} trainedRegression Modelo de regressão já treinado
      * @param {TrainedRegression} modelY Modelo de regressão já treinado
      */
-    constructor(modelX=null, modelY=null) {
+    constructor(trainedRegression=null) {
         if (new.target == Regression) {
             throw new TypeError("This class can not be instantiated");
         }
@@ -36,9 +36,9 @@ class Regression {
         this.modelX = null;
         this.modelY = null;
 
-        if (modelX !== null && modelY !== null) {
-            this.modelX = modelX.weights;
-            this.modelY = modelY.weights;
+        if (trainedRegression !== null) {
+            this.modelX = trainedRegression.weightsX;
+            this.modelY = trainedRegression.weightsY;
         }
     }
 
