@@ -16,7 +16,8 @@ function applyDivScrollerStyle(div) {
     div.style.transformOrigin = "10px 10px";
     div.style.height = "20px";
     div.style.width = "20px";
-    div.style.backgroundColor = "blue";   
+    div.style.backgroundColor = "blue";
+    div.className = "div-scroller-icjs";   
     
     return div;
 }
@@ -86,7 +87,7 @@ function screenScroller(regressionModel, filter=null) {
                 // Lógica para a criação do Scrolling
                 // Obrigado ao OzRamos :smile:
                 if (posObj.y < 0) {
-                    window.scrollTo(0, window.scrollY + posObj.y * 0.03);
+                    window.scrollTo(0, window.scrollY + posObj.y * 0.05);
                 } else if (posObj.y > window.innerHeight) {
                     window.scrollTo(0, window.scrollY + (posObj.y - window.innerHeight) * 0.03);
                 }
