@@ -8,8 +8,6 @@
 
 ICan.js é uma biblioteca criada para disponibilizar recursos assistivos em páginas da web através da aplicação de técnicas de Aprendizado Profundo. Atualmente o ICan.js disponibiliza funcionalidades para o controle de páginas web através de gestos com a cabeça e escrita de textos com gestos de Libras.
 
-> Este é um repositório de apresentação, para visualizar o repositório de desenvolvimento acesse: https://gitlab.com/ican.js/ican.js
-
 ## Arquitetura do projeto :construction_worker:
 
 A biblioteca é dividida em duas camadas de funcionalidades, estas criadas sob as funcionalidades do Tensorflow.js. A Figura abaixo apresenta as camadas da biblioteca.
